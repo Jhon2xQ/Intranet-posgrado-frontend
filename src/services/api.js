@@ -31,8 +31,15 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    // Don't attempt refresh for login requests or if already retrying
+    const isLoginRequest = originalRequest.url?.includes('/auth/login');
+    const isRefreshRequest = originalRequest.url?.includes('/auth/refresh');
+    
     // Handle 401 (Unauthorized) and 403 (Forbidden) errors - token expired
-    if ((error.response?.status === 401 || error.response?.status === 403) && !originalRequest._retry) {
+    if ((error.response?.status === 401 || error.response?.status === 403) && 
+        !originalRequest._retry && 
+        !isLoginRequest && 
+        !isRefreshRequest) {
       originalRequest._retry = true;
 
       try {

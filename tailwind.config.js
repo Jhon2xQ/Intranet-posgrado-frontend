@@ -46,11 +46,29 @@ module.exports = {
           800: '#262626',
           900: '#171717',
         },
-        // Dark header color (slate blue-gray)
+        // Dark header color (violet theme)
         header: {
-          light: '#1e293b', // slate-800
-          dark: '#0f172a',  // slate-900
+          light: '#1e293b', // slate-800 (unchanged for light mode)
+          dark: '#2e1065',  // violet-950
         },
+        // Custom dark theme colors
+        'dark-theme': {
+          50: '#faf7ff',   // Very light violet-blue
+          100: '#f3f0ff',  // Light violet-blue
+          200: '#e9e5ff',  // Lighter violet-blue
+          300: '#d4d1ff',  // Medium-light violet-blue
+          400: '#a5a0ff',  // Medium violet-blue
+          500: '#7c73ff',  // Base violet-blue
+          600: '#5b52d9',  // Darker violet-blue
+          700: '#4338ca',  // Dark violet-blue
+          800: '#312e81',  // Very dark violet-blue
+          900: '#1e1b4b',  // Darkest violet-blue
+          950: '#0f0d2a',  // Ultra dark violet-blue
+        },
+        // Custom card colors
+        'card-dark': '#1c1a42',    // Card background
+        'card-border': '#1c1a50',  // Card border
+        'card-hover': '#2c2867',   // Hover effects
         // Warning amber for pending states
         warning: {
           50: "#fffbeb",

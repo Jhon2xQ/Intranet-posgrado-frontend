@@ -11,13 +11,13 @@
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    @apply bg-neutral-100 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-100;
+    @apply bg-neutral-100 text-neutral-800 dark:bg-slate-950 dark:text-neutral-100;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-neutral-200 dark:border-neutral-700 text-neutral-800 dark:text-neutral-100;
+    @apply bg-white dark:bg-card-dark rounded-xl p-6 shadow-lg border border-neutral-200 dark:border-card-border text-neutral-800 dark:text-neutral-100;
   }
   
   .btn-primary {
@@ -25,7 +25,7 @@
   }
   
   .btn-secondary {
-    @apply bg-neutral-600 hover:bg-neutral-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-dark-theme-600 hover:bg-dark-theme-700 dark:bg-dark-theme-700 dark:hover:bg-dark-theme-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
   }
   
   .btn-success {
@@ -33,7 +33,7 @@
   }
   
   .input-field {
-    @apply w-full px-3 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-unsaac-500 focus:border-transparent bg-white;
+    @apply w-full px-3 py-2 border border-neutral-300 dark:border-card-border rounded-lg focus:outline-none focus:ring-2 focus:ring-unsaac-500 focus:border-transparent bg-white dark:bg-card-dark dark:text-neutral-100;
   }
   
   /* Animations */

@@ -92,18 +92,61 @@ src/
 # Instalar dependencias
 npm install
 
-# Configurar variables de entorno (opcional)
+# Configurar variables de entorno
 cp .env.example .env
+# Editar .env con tu configuración específica
 ```
 
 ### Variables de Entorno
 ```env
-REACT_APP_API_URL=http://localhost:3001/api
+# API Configuration
+REACT_APP_API_URL=http://localhost:8080/api
+
+# Development Settings
+REACT_APP_ENV=development
+
+# Frontend Port Configuration
+PORT=5173
+
+# Host Configuration (for external access)
+HOST=0.0.0.0
 ```
 
 ### Ejecutar en Desarrollo
 ```bash
+# El frontend se ejecutará en puerto 5173
 npm start
+```
+
+### Acceso desde Otros Dispositivos
+
+#### 1. Configurar el Frontend
+El frontend ya está configurado para aceptar conexiones externas (`HOST=0.0.0.0`).
+
+#### 2. Configurar el Backend
+Para acceso desde otros dispositivos, necesitas:
+
+1. **Obtener tu IP local:**
+   ```bash
+   # Linux/Mac
+   ip addr show
+   # O usar
+   hostname -I
+   ```
+
+2. **Actualizar .env con tu IP:**
+   ```env
+   REACT_APP_API_URL=http://TU_IP_LOCAL:8080/api
+   # Ejemplo: REACT_APP_API_URL=http://192.168.1.100:8080/api
+   ```
+
+3. **Configurar el backend para aceptar conexiones externas:**
+   - Asegúrate de que el backend esté configurado para escuchar en `0.0.0.0:8080`
+   - Verifica que no haya firewall bloqueando el puerto 8080
+
+#### 3. Acceder desde Otro Dispositivo
+```
+http://TU_IP_LOCAL:5173
 ```
 
 ### Construir para Producción

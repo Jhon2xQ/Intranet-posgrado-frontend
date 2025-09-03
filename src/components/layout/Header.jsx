@@ -50,7 +50,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-header-light dark:bg-header-dark border-b border-neutral-300 dark:border-neutral-700 sticky top-0 z-40 shadow-lg">
+    <header className="bg-header-light dark:bg-header-dark sticky top-0 z-40 shadow-sm dark:shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo and Institution Name */}
@@ -157,18 +157,18 @@ const Header = () => {
 
               {/* Desktop Dropdown Menu */}
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-800 rounded-lg shadow-lg py-2 z-50 border border-neutral-200 dark:border-neutral-700">
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-card-dark rounded-lg shadow-lg py-2 z-50 border border-neutral-200 dark:border-card-border">
                   <Link
                     to="/perfil"
-                    className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                    className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-card-hover transition-colors"
                     onClick={() => setIsUserMenuOpen(false)}
                   >
                     Mi Perfil
                   </Link>
-                  <hr className="my-2 border-neutral-200 dark:border-neutral-700" />
+                  <hr className="my-2 border-neutral-200 dark:border-none" />
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                    className="block w-full text-left px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-card-hover transition-colors"
                   >
                     Cerrar Sesión
                   </button>
@@ -203,7 +203,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-neutral-300 dark:border-neutral-700 mt-4 pt-4 mobile-menu-content">
+          <div className="md:hidden pb-4 border-t border-neutral-300 dark:border-none mt-4 pt-4 mobile-menu-content">
             <div className="space-y-2">
               {/* Theme toggle in mobile */}
               <div className="px-4 py-2 mb-4">
@@ -255,7 +255,7 @@ const Header = () => {
                 </Link>
               ))}
               
-              <hr className="my-2 border-neutral-300 dark:border-neutral-700" />
+              <hr className="my-2 border-neutral-300 dark:border-none" />
               
               {/* Profile and logout */}
               <Link

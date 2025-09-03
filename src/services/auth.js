@@ -29,7 +29,7 @@ export const authService = {
       console.error('Error status:', error.response?.status);
       
       if (error.code === 'ECONNREFUSED' || error.code === 'ERR_NETWORK') {
-        throw new Error('No se puede conectar al servidor. Verifique que el backend esté ejecutándose en el puerto 5173.');
+        throw new Error('No se puede conectar al servidor. Verifique que el backend esté ejecutándose en el puerto 8080.');
       }
       
       // Handle 401/403 errors specifically for incorrect credentials
