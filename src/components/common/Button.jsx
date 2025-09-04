@@ -12,11 +12,11 @@ const Button = ({
   const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variants = {
-    primary: 'bg-unsaac-600 hover:bg-unsaac-700 text-white focus:ring-unsaac-500',
+    primary: 'bg-yellow-400 hover:bg-yellow-500 text-black focus:ring-yellow-300',
     secondary: 'bg-neutral-200 hover:bg-neutral-300 text-neutral-900 focus:ring-neutral-500',
-    outline: 'border border-unsaac-600 text-unsaac-600 hover:bg-unsaac-50 focus:ring-unsaac-500',
-    ghost: 'text-unsaac-600 hover:bg-unsaac-50 focus:ring-unsaac-500',
-    danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500'
+    outline: 'border border-yellow-400 text-yellow-600 hover:bg-yellow-50 focus:ring-yellow-300',
+    ghost: 'text-yellow-600 hover:bg-yellow-50 focus:ring-yellow-300',
+    danger: 'bg-yellow-400 hover:bg-yellow-500 text-black focus:ring-yellow-300'
   };
   
   const sizes = {
