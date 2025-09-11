@@ -1,5 +1,5 @@
-import api from './api';
-import { API_ENDPOINTS } from '../constants';
+import api from "./api";
+import { API_ENDPOINTS } from "../constants";
 
 export const userService = {
   // Get academic information
@@ -8,7 +8,10 @@ export const userService = {
       const response = await api.get(API_ENDPOINTS.ACADEMIC_INFO);
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Error al obtener información académica');
+      throw new Error(
+        error.response?.data?.message ||
+          "Error al obtener información académica",
+      );
     }
   },
 
@@ -18,7 +21,10 @@ export const userService = {
       const response = await api.get(API_ENDPOINTS.PERSONAL_INFO);
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Error al obtener información personal');
+      throw new Error(
+        error.response?.data?.message ||
+          "Error al obtener información personal",
+      );
     }
   },
 
@@ -28,7 +34,9 @@ export const userService = {
       const response = await api.get(API_ENDPOINTS.GRADES);
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Error al obtener notas');
+      throw new Error(
+        error.response?.data?.message || "Error al obtener notas",
+      );
     }
   },
 
@@ -38,7 +46,9 @@ export const userService = {
       const response = await api.get(API_ENDPOINTS.PAYMENTS);
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Error al obtener pagos');
+      throw new Error(
+        error.response?.data?.message || "Error al obtener pagos",
+      );
     }
   },
 
@@ -48,7 +58,9 @@ export const userService = {
       const response = await api.get(API_ENDPOINTS.NOTICES);
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Error al obtener avisos');
+      throw new Error(
+        error.response?.data?.message || "Error al obtener avisos",
+      );
     }
   },
 
@@ -58,7 +70,9 @@ export const userService = {
       const response = await api.get(API_ENDPOINTS.LINKS);
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || 'Error al obtener enlaces');
+      throw new Error(
+        error.response?.data?.message || "Error al obtener enlaces",
+      );
     }
-  }
+  },
 };

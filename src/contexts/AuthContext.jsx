@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { authService } from '../services/auth';
-import { STORAGE_KEYS } from '../constants';
+import React, { createContext, useContext, useReducer, useEffect } from "react";
+import { authService } from "../services/auth";
+import { STORAGE_KEYS } from "../constants";
 
 // Initial state
 const initialState = {
@@ -8,18 +8,18 @@ const initialState = {
   user: null,
   username: null,
   loading: true,
-  error: null
+  error: null,
 };
 
 // Action types
 const AUTH_ACTIONS = {
-  LOGIN_START: 'LOGIN_START',
-  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
-  LOGIN_FAILURE: 'LOGIN_FAILURE',
-  LOGOUT: 'LOGOUT',
-  SET_LOADING: 'SET_LOADING',
-  CLEAR_ERROR: 'CLEAR_ERROR',
-  SET_USER_DATA: 'SET_USER_DATA'
+  LOGIN_START: "LOGIN_START",
+  LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  LOGIN_FAILURE: "LOGIN_FAILURE",
+  LOGOUT: "LOGOUT",
+  SET_LOADING: "SET_LOADING",
+  CLEAR_ERROR: "CLEAR_ERROR",
+  SET_USER_DATA: "SET_USER_DATA",
 };
 
 // Reducer
@@ -29,7 +29,7 @@ function authReducer(state, action) {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
     case AUTH_ACTIONS.LOGIN_SUCCESS:
       return {
@@ -37,7 +37,7 @@ function authReducer(state, action) {
         isAuthenticated: true,
         username: action.payload.username,
         loading: false,
-        error: null
+        error: null,
       };
     case AUTH_ACTIONS.LOGIN_FAILURE:
       return {
@@ -46,27 +46,27 @@ function authReducer(state, action) {
         username: null,
         user: null,
         loading: false,
-        error: action.payload
+        error: action.payload,
       };
     case AUTH_ACTIONS.LOGOUT:
       return {
         ...initialState,
-        loading: false
+        loading: false,
       };
     case AUTH_ACTIONS.SET_LOADING:
       return {
         ...state,
-        loading: action.payload
+        loading: action.payload,
       };
     case AUTH_ACTIONS.CLEAR_ERROR:
       return {
         ...state,
-        error: null
+        error: null,
       };
     case AUTH_ACTIONS.SET_USER_DATA:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
     default:
       return state;
@@ -84,11 +84,11 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
     const username = localStorage.getItem(STORAGE_KEYS.USERNAME);
-    
+
     if (token && username) {
       dispatch({
         type: AUTH_ACTIONS.LOGIN_SUCCESS,
-        payload: { username }
+        payload: { username },
       });
     } else {
       dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: false });
@@ -98,18 +98,18 @@ export function AuthProvider({ children }) {
   // Login function
   const login = async (credentials) => {
     dispatch({ type: AUTH_ACTIONS.LOGIN_START });
-    
+
     try {
       const response = await authService.login(credentials);
       dispatch({
         type: AUTH_ACTIONS.LOGIN_SUCCESS,
-        payload: { username: response.data.username }
+        payload: { username: response.data.username },
       });
       return response;
     } catch (error) {
       dispatch({
         type: AUTH_ACTIONS.LOGIN_FAILURE,
-        payload: error.message
+        payload: error.message,
       });
       throw error;
     }
@@ -120,7 +120,7 @@ export function AuthProvider({ children }) {
     try {
       await authService.logout();
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     } finally {
       dispatch({ type: AUTH_ACTIONS.LOGOUT });
     }
@@ -135,7 +135,7 @@ export function AuthProvider({ children }) {
   const setUserData = (userData) => {
     dispatch({
       type: AUTH_ACTIONS.SET_USER_DATA,
-      payload: userData
+      payload: userData,
     });
   };
 
@@ -144,21 +144,17 @@ export function AuthProvider({ children }) {
     login,
     logout,
     clearError,
-    setUserData
+    setUserData,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 // Custom hook to use auth context
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }

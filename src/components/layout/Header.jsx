@@ -14,7 +14,7 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isConsultasMenuOpen, setIsConsultasMenuOpen] = useState(false);
   const [studentCode, setStudentCode] = useState("");
-  const { username, logout } = useAuth();
+  const { logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
   const mobileMenuRef = useRef(null);
@@ -44,9 +44,14 @@ const Header = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       // Check if click is outside mobile menu container
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target)
+      ) {
         // Additional check: don't close if clicking on mobile menu content
-        const mobileMenuContent = document.querySelector(".mobile-menu-content");
+        const mobileMenuContent = document.querySelector(
+          ".mobile-menu-content",
+        );
         if (!mobileMenuContent || !mobileMenuContent.contains(event.target)) {
           setIsMobileMenuOpen(false);
         }
@@ -54,7 +59,10 @@ const Header = () => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
         setIsUserMenuOpen(false);
       }
-      if (consultasMenuRef.current && !consultasMenuRef.current.contains(event.target)) {
+      if (
+        consultasMenuRef.current &&
+        !consultasMenuRef.current.contains(event.target)
+      ) {
         setIsConsultasMenuOpen(false);
       }
     };
@@ -103,7 +111,12 @@ const Header = () => {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
 
@@ -155,7 +168,12 @@ const Header = () => {
               title={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
             >
               {isDark ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -164,7 +182,12 @@ const Header = () => {
                   />
                 </svg>
               ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -182,16 +205,27 @@ const Header = () => {
                 className="flex items-center space-x-2 text-gray-700 dark:text-white/80 hover:text-blue-600 dark:hover:text-yellow-400 transition-colors bg-blue-500/10 dark:bg-amber-500/10 px-3 rounded-lg border border-blue-400/20 dark:border-yellow-400/20"
               >
                 <div className="w-10 h-10 flex items-center justify-center">
-                  <img src={isDark ? userWhiteIcon : userBlackIcon} alt="User" className="w-10 h-10" />
+                  <img
+                    src={isDark ? userWhiteIcon : userBlackIcon}
+                    alt="User"
+                    className="w-10 h-10"
+                  />
                 </div>
-                <span className="text-sm font-medium">{studentCode || "Cargando..."}</span>
+                <span className="text-sm font-medium">
+                  {studentCode || "Cargando..."}
+                </span>
                 <svg
                   className={`w-4 h-4 transition-transform ${isUserMenuOpen ? "rotate-180" : ""}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
 
@@ -218,14 +252,27 @@ const Header = () => {
           </div>
 
           {/* Mobile: Logo + Menu button */}
-          <div className="md:hidden flex items-center space-x-4" ref={mobileMenuRef}>
+          <div
+            className="md:hidden flex items-center space-x-4"
+            ref={mobileMenuRef}
+          >
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-700 dark:text-white/80 hover:text-blue-600 dark:hover:text-amber-500"
             >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
           </div>
@@ -242,7 +289,12 @@ const Header = () => {
                   className="flex items-center space-x-3 text-gray-700 dark:text-white/80 hover:text-blue-600 dark:hover:text-yellow-400 transition-colors"
                 >
                   {isDark ? (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -251,7 +303,12 @@ const Header = () => {
                       />
                     </svg>
                   ) : (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -260,7 +317,9 @@ const Header = () => {
                       />
                     </svg>
                   )}
-                  <span className="text-sm font-medium">{isDark ? "Modo Claro" : "Modo Oscuro"}</span>
+                  <span className="text-sm font-medium">
+                    {isDark ? "Modo Claro" : "Modo Oscuro"}
+                  </span>
                 </button>
               </div>
 
@@ -277,7 +336,11 @@ const Header = () => {
                     setTimeout(() => setIsMobileMenuOpen(false), 100);
                   }}
                 >
-                  <img src={isDark ? userWhiteIcon : userBlackIcon} alt="User" className="w-8 h-8" />
+                  <img
+                    src={isDark ? userWhiteIcon : userBlackIcon}
+                    alt="User"
+                    className="w-8 h-8"
+                  />
                   <span>Mi Perfil</span>
                 </Link>
               </div>

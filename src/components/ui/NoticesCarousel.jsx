@@ -8,7 +8,9 @@ const NoticesCarousel = ({ notices = [] }) => {
     if (notices.length <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex === notices.length - 1 ? 0 : prevIndex + 1));
+      setCurrentIndex((prevIndex) =>
+        prevIndex === notices.length - 1 ? 0 : prevIndex + 1,
+      );
     }, 5000);
 
     return () => clearInterval(interval);
@@ -17,8 +19,12 @@ const NoticesCarousel = ({ notices = [] }) => {
   if (!notices.length) {
     return (
       <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Avisos Importantes</h3>
-        <p className="text-gray-600 dark:text-white/80">No hay avisos disponibles en este momento.</p>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          Avisos Importantes
+        </h3>
+        <p className="text-gray-600 dark:text-white/80">
+          No hay avisos disponibles en este momento.
+        </p>
       </div>
     );
   }
@@ -27,7 +33,9 @@ const NoticesCarousel = ({ notices = [] }) => {
 
   return (
     <div className="card relative overflow-hidden">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Avisos Importantes</h3>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        Avisos Importantes
+      </h3>
 
       <div className="relative">
         {/* Notice Content */}
@@ -39,9 +47,13 @@ const NoticesCarousel = ({ notices = [] }) => {
             />
           )}
 
-          <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{currentNotice.titulo}</h4>
+          <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+            {currentNotice.titulo}
+          </h4>
 
-          <p className="text-gray-700 dark:text-white/90 mb-4 leading-relaxed">{currentNotice.cuerpo}</p>
+          <p className="text-gray-700 dark:text-white/90 mb-4 leading-relaxed">
+            {currentNotice.cuerpo}
+          </p>
 
           {currentNotice.enlaceVerMas && (
             <a
@@ -51,7 +63,12 @@ const NoticesCarousel = ({ notices = [] }) => {
               className="inline-flex items-center text-blue-600 dark:text-amber-500 dark:text-primary-300 dark:hover:text-amber-300 hover:text-blue-700 dark:hover:text-primary-200 font-medium transition-colors"
             >
               Ver más
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-4 h-4 ml-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -84,19 +101,47 @@ const NoticesCarousel = ({ notices = [] }) => {
         {notices.length > 1 && (
           <>
             <button
-              onClick={() => setCurrentIndex(currentIndex === 0 ? notices.length - 1 : currentIndex - 1)}
+              onClick={() =>
+                setCurrentIndex(
+                  currentIndex === 0 ? notices.length - 1 : currentIndex - 1,
+                )
+              }
               className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800/60 dark:bg-black/20 hover:bg-gray-800/80 dark:hover:bg-black/40 text-white p-2 rounded-full transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
             </button>
             <button
-              onClick={() => setCurrentIndex(currentIndex === notices.length - 1 ? 0 : currentIndex + 1)}
+              onClick={() =>
+                setCurrentIndex(
+                  currentIndex === notices.length - 1 ? 0 : currentIndex + 1,
+                )
+              }
               className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800/60 dark:bg-black/20 hover:bg-gray-800/80 dark:hover:bg-black/40 text-white p-2 rounded-full transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </>

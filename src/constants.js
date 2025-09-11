@@ -2,8 +2,8 @@
 // For cross-device access, use the actual IP address instead of localhost
 const getApiBaseUrl = () => {
   // Check if we have a custom API URL in environment
-  if (process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL;
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
   }
 
   // Default to localhost for development

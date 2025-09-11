@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react";
 
 const NotificationToast = ({ notifications, onRemove }) => {
   if (!notifications.length) return null;
 
   const getTypeStyles = (type) => {
     const styles = {
-      success: 'bg-green-500 text-white',
-      error: 'bg-red-500 text-white',
-      warning: 'bg-yellow-500 text-white',
-      info: 'bg-blue-500 text-white'
+      success: "bg-green-500 text-white",
+      error: "bg-red-500 text-white",
+      warning: "bg-yellow-500 text-white",
+      info: "bg-blue-500 text-white",
     };
     return styles[type] || styles.info;
   };
 
   const getIcon = (type) => {
     const icons = {
-      success: '✓',
-      error: '✕',
-      warning: '⚠',
-      info: 'ℹ'
+      success: "✓",
+      error: "✕",
+      warning: "⚠",
+      info: "ℹ",
     };
     return icons[type] || icons.info;
   };

@@ -61,12 +61,15 @@ const Perfil = () => {
     if (!passwordData.nuevaContrasenia.trim()) {
       errors.nuevaContrasenia = "La nueva contraseña es requerida";
     } else if (passwordData.nuevaContrasenia.length < 6) {
-      errors.nuevaContrasenia = "La contraseña debe tener al menos 6 caracteres";
+      errors.nuevaContrasenia =
+        "La contraseña debe tener al menos 6 caracteres";
     }
 
     if (!passwordData.confirmarContrasenia.trim()) {
       errors.confirmarContrasenia = "Confirme la nueva contraseña";
-    } else if (passwordData.nuevaContrasenia !== passwordData.confirmarContrasenia) {
+    } else if (
+      passwordData.nuevaContrasenia !== passwordData.confirmarContrasenia
+    ) {
       errors.confirmarContrasenia = "Las contraseñas no coinciden";
     }
 
@@ -83,7 +86,9 @@ const Perfil = () => {
 
     try {
       setChangingPassword(true);
-      const response = await authService.changePassword(passwordData.nuevaContrasenia);
+      const response = await authService.changePassword(
+        passwordData.nuevaContrasenia,
+      );
 
       if (response.success) {
         addNotification("Contraseña actualizada exitosamente", "success");
@@ -92,7 +97,10 @@ const Perfil = () => {
           confirmarContrasenia: "",
         });
       } else {
-        addNotification(response.message || "Error al cambiar contraseña", "error");
+        addNotification(
+          response.message || "Error al cambiar contraseña",
+          "error",
+        );
       }
     } catch (error) {
       console.error("Error changing password:", error);
@@ -118,64 +126,106 @@ const Perfil = () => {
     <div className="space-y-8">
       {/* Header */}
       <div className="card">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Mi Perfil</h1>
-        <p className="text-gray-600 dark:text-white/80">Gestiona tu información personal y configuración de cuenta</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          Mi Perfil
+        </h1>
+        <p className="text-gray-600 dark:text-white/80">
+          Gestiona tu información personal y configuración de cuenta
+        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Personal Information */}
         <div className="card">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Información Personal</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+            Información Personal
+          </h2>
 
           {personalInfo ? (
             <div className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4">
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">Código de Estudiante</h3>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-white">{personalInfo.alumno}</p>
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">
+                    Código de Estudiante
+                  </h3>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {personalInfo.alumno}
+                  </p>
                 </div>
 
                 <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4">
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">Documento de Identidad</h3>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-white">{personalInfo.nroDocumento}</p>
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">
+                    Documento de Identidad
+                  </h3>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {personalInfo.nroDocumento}
+                  </p>
                 </div>
               </div>
 
               <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">Nombre Completo</h3>
-                <p className="text-lg font-semibold text-gray-900 dark:text-white">{fullName}</p>
+                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">
+                  Nombre Completo
+                </h3>
+                <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                  {fullName}
+                </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4">
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">Nombres</h3>
-                  <p className="text-gray-900 dark:text-white">{personalInfo.nombres}</p>
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">
+                    Nombres
+                  </h3>
+                  <p className="text-gray-900 dark:text-white">
+                    {personalInfo.nombres}
+                  </p>
                 </div>
 
                 <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4">
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">Apellido Paterno</h3>
-                  <p className="text-gray-900 dark:text-white">{personalInfo.apellidoPaterno}</p>
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">
+                    Apellido Paterno
+                  </h3>
+                  <p className="text-gray-900 dark:text-white">
+                    {personalInfo.apellidoPaterno}
+                  </p>
                 </div>
               </div>
 
               <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">Apellido Materno</h3>
-                <p className="text-gray-900 dark:text-white">{personalInfo.apellidoMaterno}</p>
+                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">
+                  Apellido Materno
+                </h3>
+                <p className="text-gray-900 dark:text-white">
+                  {personalInfo.apellidoMaterno}
+                </p>
               </div>
 
               <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">Correo Electrónico</h3>
-                <p className="text-gray-900 dark:text-white">{personalInfo.email || "No registrado"}</p>
+                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">
+                  Correo Electrónico
+                </h3>
+                <p className="text-gray-900 dark:text-white">
+                  {personalInfo.email || "No registrado"}
+                </p>
               </div>
 
               <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">Teléfono</h3>
-                <p className="text-gray-900 dark:text-white">{personalInfo.telefono || "No registrado"}</p>
+                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">
+                  Teléfono
+                </h3>
+                <p className="text-gray-900 dark:text-white">
+                  {personalInfo.telefono || "No registrado"}
+                </p>
               </div>
 
               <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">Dirección</h3>
-                <p className="text-gray-900 dark:text-white">{personalInfo.direccion || "No registrado"}</p>
+                <h3 className="text-sm font-medium text-gray-600 dark:text-white/70 mb-1">
+                  Dirección
+                </h3>
+                <p className="text-gray-900 dark:text-white">
+                  {personalInfo.direccion || "No registrado"}
+                </p>
               </div>
             </div>
           ) : (
@@ -195,14 +245,18 @@ const Perfil = () => {
                   />
                 </svg>
               </div>
-              <p className="text-gray-600 dark:text-white/80">No se pudo cargar la información personal.</p>
+              <p className="text-gray-600 dark:text-white/80">
+                No se pudo cargar la información personal.
+              </p>
             </div>
           )}
         </div>
 
         {/* Change Password */}
         <div className="card">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Cambiar Contraseña</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+            Cambiar Contraseña
+          </h2>
 
           <form onSubmit={handlePasswordSubmit} className="space-y-6">
             <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 rounded-lg p-4">
@@ -221,7 +275,9 @@ const Perfil = () => {
                   />
                 </svg>
                 <div>
-                  <h4 className="text-blue-800 dark:text-blue-200 font-medium mb-1">Recomendaciones de Seguridad</h4>
+                  <h4 className="text-blue-800 dark:text-blue-200 font-medium mb-1">
+                    Recomendaciones de Seguridad
+                  </h4>
                   <ul className="text-blue-700 dark:text-blue-200/80 text-sm space-y-1">
                     <li>• Usa al menos 6 caracteres</li>
                     <li>• Combina letras, números y símbolos</li>
@@ -253,7 +309,12 @@ const Perfil = () => {
               autoComplete="new-password"
             />
 
-            <Button type="submit" className="w-full" loading={changingPassword} disabled={changingPassword}>
+            <Button
+              type="submit"
+              className="w-full"
+              loading={changingPassword}
+              disabled={changingPassword}
+            >
               Cambiar Contraseña
             </Button>
           </form>
@@ -262,12 +323,19 @@ const Perfil = () => {
 
       {/* Account Information */}
       <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Información de la Cuenta</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+          Información de la Cuenta
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4 text-center">
             <div className="w-12 h-12 bg-blue-600 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -276,13 +344,22 @@ const Perfil = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-gray-900 dark:text-white font-semibold mb-1">Cuenta Activa</h3>
-            <p className="text-gray-600 dark:text-white/70 text-sm">Tu cuenta está verificada y activa</p>
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-1">
+              Cuenta Activa
+            </h3>
+            <p className="text-gray-600 dark:text-white/70 text-sm">
+              Tu cuenta está verificada y activa
+            </p>
           </div>
 
           <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4 text-center">
             <div className="w-12 h-12 bg-green-600 bg-secondary-600 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -291,13 +368,22 @@ const Perfil = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-gray-900 dark:text-white font-semibold mb-1">Seguridad</h3>
-            <p className="text-gray-600 dark:text-white/70 text-sm">Conexión segura y encriptada</p>
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-1">
+              Seguridad
+            </h3>
+            <p className="text-gray-600 dark:text-white/70 text-sm">
+              Conexión segura y encriptada
+            </p>
           </div>
 
           <div className="bg-gray-100 dark:bg-white/10 rounded-lg p-4 text-center">
             <div className="w-12 h-12 bg-violet-600 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -306,22 +392,33 @@ const Perfil = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-gray-900 dark:text-white font-semibold mb-1">Soporte</h3>
-            <p className="text-gray-600 dark:text-white/70 text-sm">Contacta al administrador si necesitas ayuda</p>
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-1">
+              Soporte
+            </h3>
+            <p className="text-gray-600 dark:text-white/70 text-sm">
+              Contacta al administrador si necesitas ayuda
+            </p>
           </div>
         </div>
       </div>
 
       {/* Quick Actions */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Acciones Rápidas</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          Acciones Rápidas
+        </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <a
             href="/dashboard"
             className="flex items-center p-4 bg-red-100 dark:bg-red-600/20 hover:bg-red-200 dark:hover:bg-red-600/30 rounded-lg transition-colors group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -334,7 +431,9 @@ const Perfil = () => {
               <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-200">
                 Dashboard
               </h4>
-              <p className="text-sm text-gray-600 dark:text-white/70">Ir al inicio</p>
+              <p className="text-sm text-gray-600 dark:text-white/70">
+                Ir al inicio
+              </p>
             </div>
           </a>
 
@@ -343,7 +442,12 @@ const Perfil = () => {
             className="flex items-center p-4 bg-blue-100 dark:bg-blue-600/20 hover:bg-blue-200 dark:hover:bg-blue-600/30 rounded-lg transition-colors group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -356,7 +460,9 @@ const Perfil = () => {
               <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-200">
                 Mis Notas
               </h4>
-              <p className="text-sm text-gray-600 dark:text-white/70">Ver calificaciones</p>
+              <p className="text-sm text-gray-600 dark:text-white/70">
+                Ver calificaciones
+              </p>
             </div>
           </a>
 
@@ -365,7 +471,12 @@ const Perfil = () => {
             className="flex items-center p-4 bg-violet-100 dark:bg-violet-600/20 hover:bg-violet-200 dark:hover:bg-violet-600/30 rounded-lg transition-colors group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-violet-600 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -378,7 +489,9 @@ const Perfil = () => {
               <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-200">
                 Mis Pagos
               </h4>
-              <p className="text-sm text-gray-600 dark:text-white/70">Estado financiero</p>
+              <p className="text-sm text-gray-600 dark:text-white/70">
+                Estado financiero
+              </p>
             </div>
           </a>
         </div>

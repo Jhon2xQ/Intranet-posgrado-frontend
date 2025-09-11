@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext.jsx";
 import { userService } from "../services/user";
 import { useNotification } from "../hooks/useNotification";
 import NoticesCarousel from "../components/ui/NoticesCarousel";
@@ -21,30 +21,47 @@ const Dashboard = () => {
         setLoading(true);
 
         // Fetch all dashboard data in parallel
-        const [academicResponse, noticesResponse, linksResponse] = await Promise.allSettled([
-          userService.getAcademicInfo(),
-          userService.getNotices(),
-          userService.getLinks(),
-        ]);
+        const [academicResponse, noticesResponse, linksResponse] =
+          await Promise.allSettled([
+            userService.getAcademicInfo(),
+            userService.getNotices(),
+            userService.getLinks(),
+          ]);
 
-        const newData = { ...data };
+        const newData = {
+          academicInfo: null,
+          notices: [],
+          links: [],
+        };
 
         // Handle academic info
-        if (academicResponse.status === "fulfilled" && academicResponse.value.success) {
+        if (
+          academicResponse.status === "fulfilled" &&
+          academicResponse.value.success
+        ) {
           newData.academicInfo = academicResponse.value.data;
         } else if (academicResponse.status === "rejected") {
-          console.error("Error fetching academic info:", academicResponse.reason);
+          console.error(
+            "Error fetching academic info:",
+            academicResponse.reason,
+          );
         }
 
         // Handle notices
-        if (noticesResponse.status === "fulfilled" && noticesResponse.value.success) {
+        if (
+          noticesResponse.status === "fulfilled" &&
+          noticesResponse.value.success
+        ) {
           newData.notices = noticesResponse.value.data;
         } else if (noticesResponse.status === "rejected") {
           console.error("Error fetching notices:", noticesResponse.reason);
         }
 
         // Handle links
-        if (linksResponse.status === "fulfilled" && linksResponse.value.success) {
+        if (
+          linksResponse.status === "fulfilled" &&
+          linksResponse.value.success
+        ) {
           newData.links = linksResponse.value.data;
         } else if (linksResponse.status === "rejected") {
           console.error("Error fetching links:", linksResponse.reason);
@@ -88,26 +105,34 @@ const Dashboard = () => {
             <div className="mt-8">
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-neutral-900/20 dark:to-neutral-700/20 rounded-xl p-6 border border-blue-200/50 dark:border-neutral-600/50">
                 <div className="flex items-center justify-center mb-4">
-                  <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Información Académica</h3>
+                  <h3 className="text-xl font-bold text-neutral-800 dark:text-white">
+                    Información Académica
+                  </h3>
                 </div>
 
                 <div
                   className={`grid grid-cols-1 gap-4 ${
-                    academicInfo.especialidad ? "md:grid-cols-3" : "md:grid-cols-2"
+                    academicInfo.especialidad
+                      ? "md:grid-cols-3"
+                      : "md:grid-cols-2"
                   }`}
                 >
                   <div className="bg-white dark:bg-gray-800/50 rounded-lg p-4 text-center border border-gray-200/50 dark:border-gray-700/50">
                     <div className="text-blue-600 dark:text-amber-400 text-sm font-medium uppercase tracking-wide mb-1">
                       Código
                     </div>
-                    <div className="text-lg font-bold text-neutral-800 dark:text-white">{academicInfo.alumno}</div>
+                    <div className="text-lg font-bold text-neutral-800 dark:text-white">
+                      {academicInfo.alumno}
+                    </div>
                   </div>
 
                   <div className="bg-white dark:bg-gray-800/50 rounded-lg p-4 text-center border border-gray-200/50 dark:border-gray-700/50">
                     <div className="text-blue-600 dark:text-amber-400 text-sm font-medium uppercase tracking-wide mb-1">
                       Programa
                     </div>
-                    <div className="text-lg font-bold text-neutral-800 dark:text-white">{academicInfo.carrera}</div>
+                    <div className="text-lg font-bold text-neutral-800 dark:text-white">
+                      {academicInfo.carrera}
+                    </div>
                   </div>
 
                   {academicInfo.especialidad && (
@@ -135,7 +160,9 @@ const Dashboard = () => {
 
         {/* Important Links */}
         <div className="card">
-          <h3 className="text-lg font-semibold text-neutral-800 dark:text-white mb-4">Enlaces Importantes</h3>
+          <h3 className="text-lg font-semibold text-neutral-800 dark:text-white mb-4">
+            Enlaces Importantes
+          </h3>
 
           {links.length > 0 ? (
             <div className="space-y-3">
@@ -169,21 +196,30 @@ const Dashboard = () => {
               ))}
             </div>
           ) : (
-            <p className="text-neutral-600 dark:text-white/80">No hay enlaces disponibles en este momento.</p>
+            <p className="text-neutral-600 dark:text-white/80">
+              No hay enlaces disponibles en este momento.
+            </p>
           )}
         </div>
       </div>
 
       {/* Quick Actions */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-neutral-800 dark:text-white mb-4">Acciones Rápidas</h3>
+        <h3 className="text-lg font-semibold text-neutral-800 dark:text-white mb-4">
+          Acciones Rápidas
+        </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <a
             href="/notas"
             className="flex items-center p-4 bg-blue-100 dark:bg-blue-600/20 hover:bg-blue-200 dark:hover:bg-blue-600/30 rounded-lg transition-colors group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -196,7 +232,9 @@ const Dashboard = () => {
               <h4 className="font-medium text-neutral-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-200">
                 Mis Notas
               </h4>
-              <p className="text-sm text-neutral-600 dark:text-white/70">Ver calificaciones</p>
+              <p className="text-sm text-neutral-600 dark:text-white/70">
+                Ver calificaciones
+              </p>
             </div>
           </a>
 
@@ -205,7 +243,12 @@ const Dashboard = () => {
             className="flex items-center p-4 bg-violet-100 dark:bg-violet-600/20 hover:bg-violet-200 dark:hover:bg-violet-600/30 rounded-lg transition-colors group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-violet-600 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -218,7 +261,9 @@ const Dashboard = () => {
               <h4 className="font-medium text-neutral-800 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-200">
                 Mis Pagos
               </h4>
-              <p className="text-sm text-neutral-600 dark:text-white/70">Estado de pagos</p>
+              <p className="text-sm text-neutral-600 dark:text-white/70">
+                Estado de pagos
+              </p>
             </div>
           </a>
 
@@ -227,7 +272,12 @@ const Dashboard = () => {
             className="flex items-center p-4 bg-green-100 dark:bg-green-600/20 hover:bg-green-200 dark:hover:bg-green-600/30 rounded-lg transition-colors group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -240,7 +290,9 @@ const Dashboard = () => {
               <h4 className="font-medium text-neutral-800 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-200">
                 Mi Perfil
               </h4>
-              <p className="text-sm text-neutral-600 dark:text-white/70">Datos personales</p>
+              <p className="text-sm text-neutral-600 dark:text-white/70">
+                Datos personales
+              </p>
             </div>
           </a>
         </div>

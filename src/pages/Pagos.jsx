@@ -27,11 +27,17 @@ const Pagos = () => {
           paymentsData: null,
         };
 
-        if (academicResponse.status === "fulfilled" && academicResponse.value.success) {
+        if (
+          academicResponse.status === "fulfilled" &&
+          academicResponse.value.success
+        ) {
           newData.academicInfo = academicResponse.value.data;
         }
 
-        if (paymentsResponse.status === "fulfilled" && paymentsResponse.value.success) {
+        if (
+          paymentsResponse.status === "fulfilled" &&
+          paymentsResponse.value.success
+        ) {
           newData.paymentsData = paymentsResponse.value.data;
         } else if (paymentsResponse.status === "rejected") {
           addNotification("Error al cargar los pagos", "error");
@@ -62,31 +68,45 @@ const Pagos = () => {
     ? `${academicInfo.nombres} ${academicInfo.apellidoPaterno} ${academicInfo.apellidoMaterno}`.trim()
     : "";
 
-  const hasDebt = paymentsData ? paymentsData.totalPendiente > 0 : false;
-
   return (
     <div className="space-y-8">
       {/* Student Information */}
       <div className="card">
-        <h1 className="text-2xl font-bold text-neutral-800 dark:text-white mb-6">Estado de Pagos</h1>
+        <h1 className="text-2xl font-bold text-neutral-800 dark:text-white mb-6">
+          Estado de Pagos
+        </h1>
 
         {academicInfo && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-neutral-100 dark:bg-white/10 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-neutral-600 dark:text-white/70 mb-1">Código de Estudiante</h3>
-              <p className="text-lg font-semibold text-neutral-800 dark:text-white">{academicInfo.alumno}</p>
+              <h3 className="text-sm font-medium text-neutral-600 dark:text-white/70 mb-1">
+                Código de Estudiante
+              </h3>
+              <p className="text-lg font-semibold text-neutral-800 dark:text-white">
+                {academicInfo.alumno}
+              </p>
             </div>
 
             <div className="bg-neutral-100 dark:bg-white/10 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-neutral-600 dark:text-white/70 mb-1">Nombre Completo</h3>
-              <p className="text-lg font-semibold text-neutral-800 dark:text-white">{fullName}</p>
+              <h3 className="text-sm font-medium text-neutral-600 dark:text-white/70 mb-1">
+                Nombre Completo
+              </h3>
+              <p className="text-lg font-semibold text-neutral-800 dark:text-white">
+                {fullName}
+              </p>
             </div>
 
             <div className="bg-neutral-100 dark:bg-white/10 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-neutral-600 dark:text-white/70 mb-1">Programa Académico</h3>
-              <p className="text-lg font-semibold text-neutral-800 dark:text-white">{academicInfo.carrera}</p>
+              <h3 className="text-sm font-medium text-neutral-600 dark:text-white/70 mb-1">
+                Programa Académico
+              </h3>
+              <p className="text-lg font-semibold text-neutral-800 dark:text-white">
+                {academicInfo.carrera}
+              </p>
               {academicInfo.especialidad && (
-                <p className="text-sm text-neutral-700 dark:text-white/80">{academicInfo.especialidad}</p>
+                <p className="text-sm text-neutral-700 dark:text-white/80">
+                  {academicInfo.especialidad}
+                </p>
               )}
             </div>
           </div>
@@ -102,7 +122,9 @@ const Pagos = () => {
         {/* Payment History */}
         <div className="lg:col-span-2">
           <div className="card h-full">
-            <h2 className="text-xl font-semibold text-neutral-800 dark:text-white mb-6">Historial de Pagos</h2>
+            <h2 className="text-xl font-semibold text-neutral-800 dark:text-white mb-6">
+              Historial de Pagos
+            </h2>
 
             {paymentsData && paymentsData.pagos.length > 0 ? (
               <div className="overflow-x-auto">
@@ -110,10 +132,18 @@ const Pagos = () => {
                   <table className="w-full">
                     <thead className="sticky top-0 bg-white dark:bg-neutral-800">
                       <tr className="border-b border-neutral-300 dark:border-white/20">
-                        <th className="text-left py-3 px-4 text-neutral-800 dark:text-white font-semibold">Recibo</th>
-                        <th className="text-left py-3 px-4 text-neutral-800 dark:text-white font-semibold">Semestre</th>
-                        <th className="text-center py-3 px-4 text-neutral-800 dark:text-white font-semibold">Monto</th>
-                        <th className="text-left py-3 px-4 text-neutral-800 dark:text-white font-semibold">Fecha</th>
+                        <th className="text-left py-3 px-4 text-neutral-800 dark:text-white font-semibold">
+                          Recibo
+                        </th>
+                        <th className="text-left py-3 px-4 text-neutral-800 dark:text-white font-semibold">
+                          Semestre
+                        </th>
+                        <th className="text-center py-3 px-4 text-neutral-800 dark:text-white font-semibold">
+                          Monto
+                        </th>
+                        <th className="text-left py-3 px-4 text-neutral-800 dark:text-white font-semibold">
+                          Fecha
+                        </th>
                         <th className="text-left py-3 px-4 text-neutral-800 dark:text-white font-semibold">
                           Lugar de Pago
                         </th>
@@ -125,15 +155,26 @@ const Pagos = () => {
                           key={index}
                           className="border-b border-neutral-200 dark:border-white/10 hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors"
                         >
-                          <td className="py-3 px-4 text-neutral-800 dark:text-white/90 font-mono">{payment.recibo}</td>
-                          <td className="py-3 px-4 text-neutral-800 dark:text-white/90">{payment.semestre}</td>
+                          <td className="py-3 px-4 text-neutral-800 dark:text-white/90 font-mono">
+                            {payment.recibo}
+                          </td>
+                          <td className="py-3 px-4 text-neutral-800 dark:text-white/90">
+                            {payment.semestre}
+                          </td>
                           <td className="py-3 px-4 text-center text-neutral-800 dark:text-white/90 font-semibold">
-                            S/ {payment.monto.toLocaleString("es-PE", { minimumFractionDigits: 2 })}
+                            S/{" "}
+                            {payment.monto.toLocaleString("es-PE", {
+                              minimumFractionDigits: 2,
+                            })}
                           </td>
                           <td className="py-3 px-4 text-neutral-700 dark:text-white/80">
-                            {new Date(payment.fecha).toLocaleDateString("es-PE")}
+                            {new Date(payment.fecha).toLocaleDateString(
+                              "es-PE",
+                            )}
                           </td>
-                          <td className="py-3 px-4 text-neutral-700 dark:text-white/80">{payment.lugarPago}</td>
+                          <td className="py-3 px-4 text-neutral-700 dark:text-white/80">
+                            {payment.lugarPago}
+                          </td>
                         </tr>
                       ))}
                       {paymentsData.pagos.length > 6 &&
@@ -145,14 +186,23 @@ const Pagos = () => {
                             <td className="py-3 px-4 text-neutral-800 dark:text-white/90 font-mono">
                               {payment.recibo}
                             </td>
-                            <td className="py-3 px-4 text-neutral-800 dark:text-white/90">{payment.semestre}</td>
+                            <td className="py-3 px-4 text-neutral-800 dark:text-white/90">
+                              {payment.semestre}
+                            </td>
                             <td className="py-3 px-4 text-center text-neutral-800 dark:text-white/90 font-semibold">
-                              S/ {payment.monto.toLocaleString("es-PE", { minimumFractionDigits: 2 })}
+                              S/{" "}
+                              {payment.monto.toLocaleString("es-PE", {
+                                minimumFractionDigits: 2,
+                              })}
                             </td>
                             <td className="py-3 px-4 text-neutral-700 dark:text-white/80">
-                              {new Date(payment.fecha).toLocaleDateString("es-PE")}
+                              {new Date(payment.fecha).toLocaleDateString(
+                                "es-PE",
+                              )}
                             </td>
-                            <td className="py-3 px-4 text-neutral-700 dark:text-white/80">{payment.lugarPago}</td>
+                            <td className="py-3 px-4 text-neutral-700 dark:text-white/80">
+                              {payment.lugarPago}
+                            </td>
                           </tr>
                         ))}
                     </tbody>
@@ -162,7 +212,12 @@ const Pagos = () => {
             ) : (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-8 h-8 text-white/60"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -171,7 +226,9 @@ const Pagos = () => {
                     />
                   </svg>
                 </div>
-                <p className="text-neutral-600 dark:text-white/80">No hay pagos registrados.</p>
+                <p className="text-neutral-600 dark:text-white/80">
+                  No hay pagos registrados.
+                </p>
               </div>
             )}
 
@@ -180,8 +237,12 @@ const Pagos = () => {
               <div className="mt-6 pt-6 border-t border-white/20">
                 <div className="grid grid-cols-1 gap-4">
                   <div className="bg-neutral-100 dark:bg-white/10 rounded-lg p-4 text-center">
-                    <h4 className="text-sm font-medium text-neutral-600 dark:text-white/70 mb-1">Total de Pagos</h4>
-                    <p className="text-2xl font-bold text-neutral-800 dark:text-white">{paymentsData.pagos.length}</p>
+                    <h4 className="text-sm font-medium text-neutral-600 dark:text-white/70 mb-1">
+                      Total de Pagos
+                    </h4>
+                    <p className="text-2xl font-bold text-neutral-800 dark:text-white">
+                      {paymentsData.pagos.length}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -192,14 +253,21 @@ const Pagos = () => {
 
       {/* Quick Actions */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Acciones Rápidas</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          Acciones Rápidas
+        </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <a
             href="/dashboard"
             className="flex items-center p-4 bg-red-100 dark:bg-red-600/20 hover:bg-red-200 dark:hover:bg-red-600/30 rounded-lg transition-colors group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -212,7 +280,9 @@ const Pagos = () => {
               <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-200">
                 Dashboard
               </h4>
-              <p className="text-sm text-gray-600 dark:text-white/70">Ir al inicio</p>
+              <p className="text-sm text-gray-600 dark:text-white/70">
+                Ir al inicio
+              </p>
             </div>
           </a>
 
@@ -221,7 +291,12 @@ const Pagos = () => {
             className="flex items-center p-4 bg-blue-100 dark:bg-blue-600/20 hover:bg-blue-200 dark:hover:bg-blue-600/30 rounded-lg transition-colors group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -234,7 +309,9 @@ const Pagos = () => {
               <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-200">
                 Mis Notas
               </h4>
-              <p className="text-sm text-gray-600 dark:text-white/70">Ver calificaciones</p>
+              <p className="text-sm text-gray-600 dark:text-white/70">
+                Ver calificaciones
+              </p>
             </div>
           </a>
 
@@ -243,7 +320,12 @@ const Pagos = () => {
             className="flex items-center p-4 bg-green-100 dark:bg-green-600/20 hover:bg-green-200 dark:hover:bg-green-600/30 rounded-lg transition-colors group"
           >
             <div className="flex-shrink-0 w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center mr-3">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -256,7 +338,9 @@ const Pagos = () => {
               <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-200">
                 Mi Perfil
               </h4>
-              <p className="text-sm text-gray-600 dark:text-white/70">Datos personales</p>
+              <p className="text-sm text-gray-600 dark:text-white/70">
+                Datos personales
+              </p>
             </div>
           </a>
         </div>
