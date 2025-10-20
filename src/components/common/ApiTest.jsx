@@ -45,10 +45,7 @@ const ApiTest = () => {
       )}
 
       <div className="mt-4 text-xs text-white/70">
-        <p>
-          URL actual:{" "}
-          {process.env.REACT_APP_API_URL || "http://localhost:8080/api"}
-        </p>
+        <p>URL actual: {process.env.VITE_API_URL || "http://localhost:8080"}</p>
       </div>
     </div>
   );
