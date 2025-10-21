@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Button from "../../components/common/Button";
 import Input from "../../components/common/Input";
@@ -11,13 +11,29 @@ const Login = () => {
     contrasenia: "",
   });
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState(null);
   const { login, isAuthenticated, loading, error, clearError } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Redirect if already authenticated
+  // Show success message if redirected from change password
+  useEffect(() => {
+    if (location.state?.message) {
+      setSuccessMessage(location.state.message);
+      // Clear the message from location state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+
+  // Redirect based on authentication and first session status
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/dashboard");
+      const primeraSesion = localStorage.getItem("primeraSesion") === "true";
+      if (primeraSesion) {
+        navigate("/change-password");
+      } else {
+        navigate("/dashboard");
+      }
     }
   }, [isAuthenticated, navigate]);
 
@@ -25,9 +41,12 @@ const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Clear auth error when user starts typing
+    // Clear auth error and success message when user starts typing
     if (error) {
       clearError();
+    }
+    if (successMessage) {
+      setSuccessMessage(null);
     }
 
     setFormData((prev) => ({
@@ -67,8 +86,13 @@ const Login = () => {
     }
 
     try {
-      await login(formData);
-      // Navigation will happen automatically via useEffect when isAuthenticated becomes true
+      const response = await login(formData);
+      // Check if it's first session and redirect accordingly
+      if (response.data.primeraSesion) {
+        navigate("/change-password");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       // Error is handled by the auth context and will be displayed
       console.error("Login error:", err);
@@ -117,6 +141,25 @@ const Login = () => {
             placeholder="Ingrese su contraseña"
             autoComplete="current-password"
           />
+
+          {successMessage && (
+            <div className="bg-green-100 border-2 border-green-400 text-green-800 px-4 py-3 rounded-lg mb-4">
+              <div className="flex items-center">
+                <svg
+                  className="w-5 h-5 mr-2 flex-shrink-0 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <p className="text-sm">{successMessage}</p>
+              </div>
+            </div>
+          )}
 
           {error && (
             <div className="bg-yellow-100 border-2 border-yellow-400 text-yellow-800 px-4 py-3 rounded-lg mb-4">

@@ -44,4 +44,5 @@ export const STORAGE_KEYS = {
   ACCESS_TOKEN: "accessToken",
   USERNAME: "username",
   USER_DATA: "userData",
+  PRIMERA_SESION: "primeraSesion",
 };

@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import { ThemeProvider } from "./contexts/ThemeContext.jsx";
 import { useNotification } from "./hooks/useNotification";
@@ -6,6 +11,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import NotificationToast from "./components/common/NotificationToast";
 import Header from "./components/layout/Header";
 import Login from "./pages/Auth/Login";
+import ChangePassword from "./pages/Auth/ChangePassword";
 import Dashboard from "./pages/Dashboard";
 import Notas from "./pages/Notas";
 import Pagos from "./pages/Pagos";
@@ -20,6 +26,16 @@ function AppContent() {
         <Routes>
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
+
+          {/* Change Password Route - Protected but accessible during first session */}
+          <Route
+            path="/change-password"
+            element={
+              <ProtectedRoute allowFirstSession={true}>
+                <ChangePassword />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Protected Routes */}
           <Route
@@ -97,7 +113,10 @@ function AppContent() {
         </Routes>
 
         {/* Global Notifications */}
-        <NotificationToast notifications={notifications} onRemove={removeNotification} />
+        <NotificationToast
+          notifications={notifications}
+          onRemove={removeNotification}
+        />
       </div>
     </Router>
   );

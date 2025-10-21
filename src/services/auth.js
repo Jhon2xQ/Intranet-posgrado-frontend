@@ -16,9 +16,13 @@ export const authService = {
       console.log("Login response:", response.data);
 
       if (response.data.success) {
-        const { accessToken, username } = response.data.data;
+        const { accessToken, usuario, primeraSesion } = response.data.data;
         localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
-        localStorage.setItem(STORAGE_KEYS.USERNAME, username);
+        localStorage.setItem(STORAGE_KEYS.USERNAME, usuario);
+        localStorage.setItem(
+          STORAGE_KEYS.PRIMERA_SESION,
+          primeraSesion ? "true" : "false"
+        );
         return response.data;
       }
 
@@ -30,7 +34,7 @@ export const authService = {
 
       if (error.code === "ECONNREFUSED" || error.code === "ERR_NETWORK") {
         throw new Error(
-          "No se puede conectar al servidor. Verifique que el backend esté ejecutándose en el puerto 8080.",
+          "No se puede conectar al servidor. Verifique que el backend esté ejecutándose en el puerto 8080."
         );
       }
 
@@ -40,7 +44,7 @@ export const authService = {
       }
 
       throw new Error(
-        error.response?.data?.message || error.message || "Error de conexión",
+        error.response?.data?.message || error.message || "Error de conexión"
       );
     }
   },
@@ -56,6 +60,7 @@ export const authService = {
       localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USERNAME);
       localStorage.removeItem(STORAGE_KEYS.USER_DATA);
+      localStorage.removeItem(STORAGE_KEYS.PRIMERA_SESION);
     }
   },
 
@@ -68,7 +73,7 @@ export const authService = {
       return response.data;
     } catch (error) {
       throw new Error(
-        error.response?.data?.message || "Error al cambiar contraseña",
+        error.response?.data?.message || "Error al cambiar contraseña"
       );
     }
   },
@@ -81,5 +86,10 @@ export const authService = {
   // Get current username
   getCurrentUsername() {
     return localStorage.getItem(STORAGE_KEYS.USERNAME);
+  },
+
+  // Check if it's first session
+  isPrimeraSesion() {
+    return localStorage.getItem(STORAGE_KEYS.PRIMERA_SESION) === "true";
   },
 };

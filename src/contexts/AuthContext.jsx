@@ -7,6 +7,7 @@ const initialState = {
   isAuthenticated: false,
   user: null,
   username: null,
+  primeraSesion: false,
   loading: true,
   error: null,
 };
@@ -36,6 +37,7 @@ function authReducer(state, action) {
         ...state,
         isAuthenticated: true,
         username: action.payload.username,
+        primeraSesion: action.payload.primeraSesion,
         loading: false,
         error: null,
       };
@@ -84,11 +86,13 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
     const username = localStorage.getItem(STORAGE_KEYS.USERNAME);
+    const primeraSesion =
+      localStorage.getItem(STORAGE_KEYS.PRIMERA_SESION) === "true";
 
     if (token && username) {
       dispatch({
         type: AUTH_ACTIONS.LOGIN_SUCCESS,
-        payload: { username },
+        payload: { username, primeraSesion },
       });
     } else {
       dispatch({ type: AUTH_ACTIONS.SET_LOADING, payload: false });
@@ -103,7 +107,10 @@ export function AuthProvider({ children }) {
       const response = await authService.login(credentials);
       dispatch({
         type: AUTH_ACTIONS.LOGIN_SUCCESS,
-        payload: { username: response.data.username },
+        payload: {
+          username: response.data.usuario,
+          primeraSesion: response.data.primeraSesion,
+        },
       });
       return response;
     } catch (error) {
@@ -111,6 +118,16 @@ export function AuthProvider({ children }) {
         type: AUTH_ACTIONS.LOGIN_FAILURE,
         payload: error.message,
       });
+      throw error;
+    }
+  };
+
+  // Change password function
+  const changePassword = async (newPassword) => {
+    try {
+      const response = await authService.changePassword(newPassword);
+      return response;
+    } catch (error) {
       throw error;
     }
   };
@@ -143,6 +160,7 @@ export function AuthProvider({ children }) {
     ...state,
     login,
     logout,
+    changePassword,
     clearError,
     setUserData,
   };
