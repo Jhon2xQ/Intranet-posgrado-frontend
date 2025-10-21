@@ -17,11 +17,14 @@ import Notas from "./pages/Notas";
 import Pagos from "./pages/Pagos";
 import Perfil from "./pages/Perfil";
 
+// Get base path from environment variable
+const BASE_PATH = import.meta.env.VITE_BASE_PATH || "/";
+
 function AppContent() {
   const { notifications, removeNotification } = useNotification();
 
   return (
-    <Router>
+    <Router basename={BASE_PATH}>
       <div className="min-h-screen bg-blue-100 dark:bg-[#110022]">
         <Routes>
           {/* Public Routes */}
