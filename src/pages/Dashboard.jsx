@@ -2,18 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import { userService } from "../services/user";
 import { useNotification } from "../hooks/useNotification";
+import { useLocation } from "react-router-dom";
 import NoticesCarousel from "../components/ui/NoticesCarousel";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 
 const Dashboard = () => {
   const { username } = useAuth();
   const { addNotification } = useNotification();
+  const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
     academicInfo: null,
     notices: [],
     links: [],
   });
+
+  // Show success message if redirected from change password
+  useEffect(() => {
+    if (location.state?.message) {
+      addNotification(location.state.message, "success");
+      // Clear the message from location state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location, addNotification]);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -43,7 +54,7 @@ const Dashboard = () => {
         } else if (academicResponse.status === "rejected") {
           console.error(
             "Error fetching academic info:",
-            academicResponse.reason,
+            academicResponse.reason
           );
         }
 

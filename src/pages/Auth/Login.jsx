@@ -25,18 +25,6 @@ const Login = () => {
     }
   }, [location]);
 
-  // Redirect based on authentication and first session status
-  useEffect(() => {
-    if (isAuthenticated) {
-      const primeraSesion = localStorage.getItem("primeraSesion") === "true";
-      if (primeraSesion) {
-        navigate("/change-password");
-      } else {
-        navigate("/dashboard");
-      }
-    }
-  }, [isAuthenticated, navigate]);
-
   // Clear errors when user starts typing
   const handleChange = (e) => {
     const { name, value } = e.target;

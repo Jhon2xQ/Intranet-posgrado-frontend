@@ -21,6 +21,7 @@ const AUTH_ACTIONS = {
   SET_LOADING: "SET_LOADING",
   CLEAR_ERROR: "CLEAR_ERROR",
   SET_USER_DATA: "SET_USER_DATA",
+  UPDATE_PRIMERA_SESION: "UPDATE_PRIMERA_SESION",
 };
 
 // Reducer
@@ -69,6 +70,11 @@ function authReducer(state, action) {
       return {
         ...state,
         user: action.payload,
+      };
+    case AUTH_ACTIONS.UPDATE_PRIMERA_SESION:
+      return {
+        ...state,
+        primeraSesion: action.payload,
       };
     default:
       return state;
@@ -126,6 +132,12 @@ export function AuthProvider({ children }) {
   const changePassword = async (newPassword) => {
     try {
       const response = await authService.changePassword(newPassword);
+      // Update primera sesion to false after successful password change
+      localStorage.setItem(STORAGE_KEYS.PRIMERA_SESION, "false");
+      dispatch({
+        type: AUTH_ACTIONS.UPDATE_PRIMERA_SESION,
+        payload: false,
+      });
       return response;
     } catch (error) {
       throw error;

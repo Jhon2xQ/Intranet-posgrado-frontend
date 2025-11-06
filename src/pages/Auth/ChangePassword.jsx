@@ -56,6 +56,12 @@ const ChangePassword = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleReturn = async () => {
+    // Logout and return to login
+    await logout();
+    navigate("/login");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -69,14 +75,10 @@ const ChangePassword = () => {
     try {
       await changePassword(formData.nuevaContrasenia);
 
-      // Logout after successful password change
-      await logout();
-
-      // Redirect to login
-      navigate("/login", {
+      // Navigate to dashboard (primeraSesion is updated by the context)
+      navigate("/dashboard", {
         state: {
-          message:
-            "Contraseña actualizada exitosamente. Por favor, inicie sesión nuevamente.",
+          message: "Contraseña actualizada exitosamente.",
         },
       });
     } catch (err) {
@@ -100,10 +102,10 @@ const ChangePassword = () => {
             </div>
           </div>
           <h1 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100 mb-2">
-            Cambio de Contraseña Obligatorio
+            Cambio de Contraseña Recomendado
           </h1>
           <p className="text-neutral-600 dark:text-neutral-300">
-            Por seguridad, debe cambiar su contraseña antes de continuar
+            Por seguridad, le recomendamos cambiar su contraseña
           </p>
         </div>
 
@@ -149,14 +151,26 @@ const ChangePassword = () => {
             </div>
           )}
 
-          <Button
-            type="submit"
-            className="w-full"
-            loading={loading}
-            disabled={loading}
-          >
-            Cambiar Contraseña
-          </Button>
+          <div className="space-y-3">
+            <Button
+              type="submit"
+              className="w-full"
+              loading={loading}
+              disabled={loading}
+            >
+              Cambiar Contraseña
+            </Button>
+
+            <Button
+              type="button"
+              variant="secondary"
+              className="w-full"
+              onClick={handleReturn}
+              disabled={loading}
+            >
+              Retornar
+            </Button>
+          </div>
         </form>
 
         <div className="mt-8 text-center">
