@@ -78,6 +78,45 @@ export const authService = {
     }
   },
 
+  // Forgot password - Send code
+  async forgotPassword(codigo) {
+    try {
+      const response = await api.post(API_ENDPOINTS.FORGOT_PASSWORD, {
+        codigo,
+      });
+      return response.data;
+    } catch (error) {
+      // Return the error response data directly if available, to show the exact message from backend
+      if (error.response && error.response.data) {
+        return error.response.data;
+      }
+      throw new Error(
+        error.response?.data?.message || "Error al enviar código"
+      );
+    }
+  },
+
+  // Update forgot password - Reset password with token
+  async updateForgotPassword(token, nuevaContrasenia) {
+    try {
+      const response = await api.put(
+        `${API_ENDPOINTS.UPDATE_FORGOT_PASSWORD}?token=${token}`,
+        {
+          nuevaContrasenia,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      // Return the error response data directly if available, to show the exact message from backend
+      if (error.response && error.response.data) {
+        return error.response.data;
+      }
+      throw new Error(
+        error.response?.data?.message || "Error al actualizar contraseña"
+      );
+    }
+  },
+
   // Check if user is authenticated
   isAuthenticated() {
     return !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Button from "../../components/common/Button";
 import Input from "../../components/common/Input";
@@ -129,6 +129,15 @@ const Login = () => {
             placeholder="Ingrese su contraseña"
             autoComplete="current-password"
           />
+
+          <div className="flex justify-end mt-2">
+            <Link
+              to="/forgot-password"
+              className="text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-amber-400 dark:hover:text-amber-300 transition-colors duration-200 hover:underline decoration-2 underline-offset-4"
+            >
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
 
           {successMessage && (
             <div className="bg-green-100 border-2 border-green-400 text-green-800 px-4 py-3 rounded-lg mb-4">

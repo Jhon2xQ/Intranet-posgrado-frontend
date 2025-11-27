@@ -32,11 +32,11 @@ const Input = ({
         placeholder={placeholder}
         required={required}
         disabled={disabled}
-        className={`block w-full px-3 py-2 border border-neutral-400 dark:border-card-border rounded-lg shadow-sm placeholder-neutral-400 dark:placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed bg-white dark:bg-card-dark text-neutral-900 ${error ? "border-yellow-400 focus:ring-yellow-300" : ""} ${className}`}
+        className={`block w-full px-3 py-2 border border-neutral-400 dark:border-neutral-600 rounded-lg shadow-sm placeholder-neutral-400 dark:placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-600 dark:focus:ring-amber-300 dark:focus:border-amber-400 disabled:opacity-50 disabled:cursor-not-allowed bg-white dark:bg-neutral-800 dark:text-gray-100 ${error ? "border-red-500 focus:ring-red-500 dark:border-red-400 dark:focus:ring-red-400" : ""} ${className}`}
         {...props}
       />
       {error && (
-        <p className="text-sm text-yellow-600 dark:text-yellow-400">{error}</p>
+        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
       )}
     </div>
   );

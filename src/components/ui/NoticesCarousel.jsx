@@ -11,7 +11,7 @@ const NoticesCarousel = ({ notices = [] }) => {
       setCurrentIndex((prevIndex) =>
         prevIndex === notices.length - 1 ? 0 : prevIndex + 1,
       );
-    }, 5000);
+    }, 12000);
 
     return () => clearInterval(interval);
   }, [notices.length]);
@@ -39,10 +39,13 @@ const NoticesCarousel = ({ notices = [] }) => {
 
       <div className="relative">
         {/* Notice Content */}
-        <div className="transition-opacity duration-500">
+        <div
+          key={currentIndex}
+          className="animate-fade-in transition-all duration-500 ease-in-out"
+        >
           {currentNotice.enlaceImagen && (
             <div
-              className="w-full h-48 bg-cover bg-center rounded-lg mb-4"
+              className="w-full h-48 bg-cover bg-center rounded-lg mb-4 shadow-sm"
               style={{ backgroundImage: `url(${currentNotice.enlaceImagen})` }}
             />
           )}
@@ -51,7 +54,7 @@ const NoticesCarousel = ({ notices = [] }) => {
             {currentNotice.titulo}
           </h4>
 
-          <p className="text-gray-700 dark:text-white/90 mb-4 leading-relaxed">
+          <p className="text-gray-700 dark:text-white/90 mb-4 leading-relaxed text-justify tracking-wide">
             {currentNotice.cuerpo}
           </p>
 
@@ -60,11 +63,11 @@ const NoticesCarousel = ({ notices = [] }) => {
               href={currentNotice.enlaceVerMas}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-blue-600 dark:text-amber-500 dark:text-primary-300 dark:hover:text-amber-300 hover:text-blue-700 dark:hover:text-primary-200 font-medium transition-colors"
+              className="inline-flex items-center text-blue-600 dark:text-amber-500 dark:text-primary-300 dark:hover:text-amber-300 hover:text-blue-700 dark:hover:text-primary-200 font-medium transition-colors group"
             >
               Ver más
               <svg
-                className="w-4 h-4 ml-1"
+                className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -80,36 +83,20 @@ const NoticesCarousel = ({ notices = [] }) => {
           )}
         </div>
 
-        {/* Navigation Dots */}
+        {/* Navigation Controls */}
         {notices.length > 1 && (
-          <div className="flex justify-center space-x-2 mt-6">
-            {notices.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                  index === currentIndex
-                    ? "bg-blue-500 dark:bg-amber-500 dark:bg-primary-400"
-                    : "bg-gray-400 dark:bg-white/30 hover:bg-gray-500 dark:hover:bg-white/50"
-                }`}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* Navigation Arrows */}
-        {notices.length > 1 && (
-          <>
+          <div className="flex items-center justify-center space-x-6 mt-8 pt-4 border-t border-gray-100 dark:border-gray-700/50">
             <button
               onClick={() =>
                 setCurrentIndex(
                   currentIndex === 0 ? notices.length - 1 : currentIndex - 1,
                 )
               }
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800/60 dark:bg-black/20 hover:bg-gray-800/80 dark:hover:bg-black/40 text-white p-2 rounded-full transition-colors"
+              className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-amber-400 hover:bg-blue-50 dark:hover:bg-amber-400/10 transition-all duration-300 transform hover:scale-110 focus:outline-none"
+              aria-label="Anterior"
             >
               <svg
-                className="w-5 h-5"
+                className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -122,16 +109,32 @@ const NoticesCarousel = ({ notices = [] }) => {
                 />
               </svg>
             </button>
+
+            <div className="flex space-x-2.5">
+              {notices.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`h-2.5 rounded-full transition-all duration-500 ease-out ${index === currentIndex
+                      ? "bg-blue-600 dark:bg-amber-400 w-8"
+                      : "bg-gray-300 dark:bg-gray-600 w-2.5 hover:bg-gray-400 dark:hover:bg-gray-500"
+                    }`}
+                  aria-label={`Ir al aviso ${index + 1}`}
+                />
+              ))}
+            </div>
+
             <button
               onClick={() =>
                 setCurrentIndex(
                   currentIndex === notices.length - 1 ? 0 : currentIndex + 1,
                 )
               }
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800/60 dark:bg-black/20 hover:bg-gray-800/80 dark:hover:bg-black/40 text-white p-2 rounded-full transition-colors"
+              className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-amber-400 hover:bg-blue-50 dark:hover:bg-amber-400/10 transition-all duration-300 transform hover:scale-110 focus:outline-none"
+              aria-label="Siguiente"
             >
               <svg
-                className="w-5 h-5"
+                className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -144,7 +147,7 @@ const NoticesCarousel = ({ notices = [] }) => {
                 />
               </svg>
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>

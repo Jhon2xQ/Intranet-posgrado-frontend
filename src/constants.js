@@ -18,7 +18,9 @@ export const API_ENDPOINTS = {
   LOGIN: "/auth/login",
   LOGOUT: "/auth/logout",
   REFRESH: "/auth/refresh",
-  CHANGE_PASSWORD: "/auth/password",
+  CHANGE_PASSWORD: "/auth/update-password",
+  FORGOT_PASSWORD: "/auth/forgot-password",
+  UPDATE_FORGOT_PASSWORD: "/auth/update-forgot-password",
 
   // User
   ACADEMIC_INFO: "/users/academica",

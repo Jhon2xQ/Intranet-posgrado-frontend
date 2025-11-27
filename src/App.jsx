@@ -11,6 +11,8 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import NotificationToast from "./components/common/NotificationToast";
 import Header from "./components/layout/Header";
 import Login from "./pages/Auth/Login";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import UpdateForgotPassword from "./pages/Auth/UpdateForgotPassword";
 import ChangePassword from "./pages/Auth/ChangePassword";
 import Dashboard from "./pages/Dashboard";
 import Notas from "./pages/Notas";
@@ -29,6 +31,11 @@ function AppContent() {
         <Routes>
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/update-forgot-password"
+            element={<UpdateForgotPassword />}
+          />
 
           {/* Change Password Route - Protected but accessible during first session */}
           <Route

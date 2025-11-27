@@ -14,14 +14,14 @@ const Button = ({
 
   const variants = {
     primary:
-      "bg-yellow-400 hover:bg-yellow-500 text-black focus:ring-yellow-300",
+      "bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500 dark:bg-amber-400 dark:hover:bg-amber-500 dark:text-black dark:focus:ring-amber-300",
     secondary:
-      "bg-neutral-200 hover:bg-neutral-300 text-neutral-900 focus:ring-neutral-500",
+      "bg-neutral-200 hover:bg-neutral-300 text-neutral-900 focus:ring-neutral-500 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-white dark:focus:ring-neutral-400",
     outline:
-      "border border-yellow-400 text-yellow-600 hover:bg-yellow-50 focus:ring-yellow-300",
-    ghost: "text-yellow-600 hover:bg-yellow-50 focus:ring-yellow-300",
+      "border border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500 dark:border-amber-400 dark:text-amber-400 dark:hover:bg-amber-400/10 dark:focus:ring-amber-300",
+    ghost: "text-blue-600 hover:bg-blue-50 focus:ring-blue-500 dark:text-amber-400 dark:hover:bg-amber-400/10 dark:focus:ring-amber-300",
     danger:
-      "bg-yellow-400 hover:bg-yellow-500 text-black focus:ring-yellow-300",
+      "bg-red-600 hover:bg-red-700 text-white focus:ring-red-500",
   };
 
   const sizes = {

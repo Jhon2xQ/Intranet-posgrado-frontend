@@ -16,6 +16,8 @@ const Perfil = () => {
     confirmarContrasenia: "",
   });
   const [passwordErrors, setPasswordErrors] = useState({});
+  const [passwordSuccessMessage, setPasswordSuccessMessage] = useState(null);
+  const [passwordServerError, setPasswordServerError] = useState(null);
 
   useEffect(() => {
     const fetchPersonalInfo = async () => {
@@ -46,13 +48,10 @@ const Perfil = () => {
       [name]: value,
     }));
 
-    // Clear field error when user starts typing
-    if (passwordErrors[name]) {
-      setPasswordErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
+    // Clear all errors and messages when user starts typing
+    setPasswordErrors({});
+    setPasswordSuccessMessage(null);
+    setPasswordServerError(null);
   };
 
   const validatePasswordForm = () => {
@@ -86,25 +85,25 @@ const Perfil = () => {
 
     try {
       setChangingPassword(true);
+      setPasswordSuccessMessage(null);
+      setPasswordServerError(null);
+
       const response = await authService.changePassword(
         passwordData.nuevaContrasenia,
       );
 
       if (response.success) {
-        addNotification("Contraseña actualizada exitosamente", "success");
+        setPasswordSuccessMessage(response.message || "Contraseña actualizada exitosamente");
         setPasswordData({
           nuevaContrasenia: "",
           confirmarContrasenia: "",
         });
       } else {
-        addNotification(
-          response.message || "Error al cambiar contraseña",
-          "error",
-        );
+        setPasswordServerError(response.message || "Error al cambiar contraseña");
       }
     } catch (error) {
       console.error("Error changing password:", error);
-      addNotification(error.message || "Error al cambiar contraseña", "error");
+      setPasswordServerError(error.message || "Error al cambiar contraseña");
     } finally {
       setChangingPassword(false);
     }
@@ -293,7 +292,6 @@ const Perfil = () => {
               type="password"
               value={passwordData.nuevaContrasenia}
               onChange={handlePasswordChange}
-              error={passwordErrors.nuevaContrasenia}
               placeholder="Ingrese su nueva contraseña"
               autoComplete="new-password"
             />
@@ -304,10 +302,51 @@ const Perfil = () => {
               type="password"
               value={passwordData.confirmarContrasenia}
               onChange={handlePasswordChange}
-              error={passwordErrors.confirmarContrasenia}
               placeholder="Confirme su nueva contraseña"
               autoComplete="new-password"
             />
+
+            {passwordSuccessMessage && (
+              <div className="bg-green-100 border-2 border-green-400 text-green-800 px-4 py-3 rounded-lg">
+                <div className="flex items-center">
+                  <svg
+                    className="w-5 h-5 mr-2 flex-shrink-0 text-green-600"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <p className="text-sm">{passwordSuccessMessage}</p>
+                </div>
+              </div>
+            )}
+
+            {(passwordServerError || Object.keys(passwordErrors).length > 0) && !passwordSuccessMessage && (
+              <div className="bg-red-100 border-2 border-red-400 text-red-800 px-4 py-3 rounded-lg">
+                <div className="flex items-center">
+                  <svg
+                    className="w-5 h-5 mr-2 flex-shrink-0 text-red-600"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <div className="text-sm">
+                    {passwordServerError && <p>{passwordServerError}</p>}
+                    {passwordErrors.nuevaContrasenia && <p>{passwordErrors.nuevaContrasenia}</p>}
+                    {passwordErrors.confirmarContrasenia && <p>{passwordErrors.confirmarContrasenia}</p>}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <Button
               type="submit"
