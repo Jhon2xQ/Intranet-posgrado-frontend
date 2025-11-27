@@ -1,64 +1,57 @@
 # Guía de Despliegue
 
-## Configuración de Base Path
+## Variables de Entorno
 
-Este proyecto soporta despliegue en diferentes rutas base usando la variable de entorno `VITE_BASE_PATH`.
-
-### Variables de Entorno
-
-#### VITE_BASE_PATH
+### VITE_BASE_PATH
 
 Define la ruta base donde se desplegará la aplicación.
 
-**Valores comunes:**
+**Ejemplos:**
 
-- `/` - Para despliegue en la raíz del dominio (por defecto)
-- `/dev/` - Para despliegue en un subdirectorio de desarrollo
-- `/intranet/` - Para despliegue en un subdirectorio personalizado
+- `/` - Raíz del dominio (por defecto)
+- `/dev/` - Subdirectorio de desarrollo
+- `/intranet/` - Subdirectorio personalizado
 
-### Configuración para Desarrollo Local
+## Configuración
 
-En el archivo `.env`:
+### 1. Desarrollo Local
 
 ```env
 VITE_BASE_PATH=/
+VITE_API_URL=http://localhost:8080/api
 ```
 
-### Configuración para Producción
-
-#### Opción 1: Despliegue en Raíz
+### 2. Producción en Raíz
 
 ```env
 VITE_BASE_PATH=/
+VITE_API_URL=https://api.tudominio.com/api
 ```
 
 Acceso: `https://tudominio.com/`
 
-#### Opción 2: Despliegue en Subdirectorio
+### 3. Producción en Subdirectorio
 
 ```env
 VITE_BASE_PATH=/dev/
+VITE_API_URL=https://api.tudominio.com/api
 ```
 
 Acceso: `https://tudominio.com/dev/`
 
-### Build para Producción
+## Build
 
 ```bash
-# 1. Configurar la variable de entorno
-# Editar .env o crear .env.production
-
-# 2. Construir el proyecto
+# 1. Configurar .env o .env.production
+# 2. Construir
 npm run build
 
-# 3. Los archivos estarán en la carpeta dist/
+# 3. Los archivos estarán en dist/
 ```
 
-### Ejemplo de Configuración en Servidor
+## Configuración del Servidor
 
-#### Nginx
-
-Para despliegue en subdirectorio `/dev/`:
+### Nginx
 
 ```nginx
 location /dev/ {
@@ -67,9 +60,7 @@ location /dev/ {
 }
 ```
 
-#### Apache
-
-Para despliegue en subdirectorio `/dev/`:
+### Apache
 
 ```apache
 <Directory "/ruta/a/tu/dist">
@@ -82,9 +73,9 @@ Para despliegue en subdirectorio `/dev/`:
 </Directory>
 ```
 
-### Variables de Entorno en Docker
+## Docker
 
-Si usas Docker, puedes pasar la variable en tiempo de build:
+### Dockerfile
 
 ```dockerfile
 ARG VITE_BASE_PATH=/
@@ -93,7 +84,7 @@ ENV VITE_BASE_PATH=$VITE_BASE_PATH
 RUN npm run build
 ```
 
-O en docker-compose:
+### docker-compose.yml
 
 ```yaml
 services:
@@ -104,9 +95,9 @@ services:
         VITE_BASE_PATH: /dev/
 ```
 
-### Notas Importantes
+## Notas Importantes
 
 1. **Siempre incluye las barras**: `/dev/` no `/dev`
 2. **Reconstruye después de cambiar**: Los cambios en `VITE_BASE_PATH` requieren rebuild
-3. **Verifica las rutas**: Asegúrate que el servidor web esté configurado correctamente
-4. **API URL**: No olvides configurar también `VITE_API_URL` según tu entorno
+3. **Configura CORS**: Asegúrate que el backend acepte peticiones desde tu dominio
+4. **HTTPS en producción**: Recomendado para seguridad
