@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { authService } from "../../services/auth";
+import { API_BASE_URL } from "../../constants";
 import Button from "./Button";
 
 const ApiTest = () => {
@@ -26,15 +27,9 @@ const ApiTest = () => {
 
   return (
     <div className="card max-w-md mx-auto mt-8">
-      <h3 className="text-lg font-semibold text-white mb-4">
-        Test de Conexión API
-      </h3>
+      <h3 className="text-lg font-semibold text-white mb-4">Test de Conexión API</h3>
 
-      <Button
-        onClick={testConnection}
-        loading={loading}
-        className="w-full mb-4"
-      >
+      <Button onClick={testConnection} loading={loading} className="w-full mb-4">
         Probar Conexión
       </Button>
 
@@ -45,7 +40,7 @@ const ApiTest = () => {
       )}
 
       <div className="mt-4 text-xs text-white/70">
-        <p>URL actual: {process.env.VITE_API_URL || "http://localhost:8080"}</p>
+        <p>URL actual: {API_BASE_URL}</p>
       </div>
     </div>
   );

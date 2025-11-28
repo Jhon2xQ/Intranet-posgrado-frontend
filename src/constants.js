@@ -1,9 +1,18 @@
 // API Configuration
 // For cross-device access, use the actual IP address instead of localhost
 const getApiBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+
+  // Log configuration in development
+  if (import.meta.env.VITE_ENV === "development") {
+    console.log("=== API Configuration ===");
+    console.log("VITE_API_URL from env:", envUrl);
+    console.log("Using URL:", envUrl || "http://localhost:8080 (default)");
+  }
+
   // Check if we have a custom API URL in environment
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
+  if (envUrl) {
+    return envUrl;
   }
 
   // Default to localhost for development
